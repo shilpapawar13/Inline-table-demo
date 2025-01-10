@@ -1,0 +1,38 @@
+.example-viewport {
+    height: 400px;
+    width: 100%;
+    overflow: auto;
+    border: 1px solid #ccc;
+  }
+  
+  .example-container {
+    position: relative;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  .loading {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  .loading-spinner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+    
+  

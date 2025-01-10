@@ -1,0 +1,26 @@
+<div class="card" style="display: flex; justify-content: space-between;">
+    <div class="flex justify-content-center align-items-center mb-3">
+      <label for="rowSize" class="mr-2">Change Row Height</label>
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(ngModel)]="selectedRowSize">
+        <mat-button-toggle *ngFor="let rowSize of rowSizes" [value]="rowSize.class">{{ rowSize.name }}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  
+    <div class="flex justify-content-center align-items-center mb-3">
+      <label for="columnSize" class="mr-2">Change Column Width</label>
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(ngModel)]="selectedColumnSize">
+        <mat-button-toggle *ngFor="let columnSize of columnSizes" [value]="columnSize.width">{{ columnSize.name }}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  
+  </div>
+  <app-reusable-table-child
+  [data]="ELEMENT_DATA"
+  [columns]="columns"
+  [stickyHeader]="true"
+  [expandableKey]="'moreDetails'"
+  [selectedRowSize]="selectedRowSize"
+  [selectedColumnSize]="selectedColumnSize"
+  [stickyRowIndices]="[1]"
+  [stickyColumns]="[]"
+  ></app-reusable-table-child>

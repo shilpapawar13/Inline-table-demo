@@ -1,0 +1,61 @@
+<div class="button-container">
+    <button mat-raised-button color="primary" (click)="bulkSave()">Bulk Save</button>
+    <button mat-raised-button color="warn" (click)="cancelAllEdits()">Cancel</button>
+  </div>
+    
+  <table mat-table [dataSource]="usersData" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element">
+        <input
+          *ngIf="isEditing[element.id]?.['id']"
+          [(ngModel)]="element.id"
+          (input)="updatePendingEdit(element.id, 'id', element.id)"
+        />
+        <span *ngIf="!isEditing[element.id]?.['id']" (dblclick)="startEditing(element.id, 'id')">
+          {{ element.id }}
+        </span>
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element">
+        <input
+          *ngIf="isEditing[element.id]?.['name']"
+          [(ngModel)]="element.name"
+          (input)="updatePendingEdit(element.id, 'name', element.name)"
+        />
+        <span *ngIf="!isEditing[element.id]?.['name']" (dblclick)="startEditing(element.id, 'name')">
+          {{ element.name }}
+        </span>
+      </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef> Username </th>
+      <td mat-cell *matCellDef="let element">
+        <input
+          *ngIf="isEditing[element.id]?.['username']"
+          [(ngModel)]="element.username"
+          (input)="updatePendingEdit(element.id, 'username', element.username)"
+        />
+        <span *ngIf="!isEditing[element.id]?.['username']" (dblclick)="startEditing(element.id, 'username')">
+          {{ element.username }}
+        </span>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  <div *ngIf="savedEdits.length > 0">
+    <h3>Saved Edits:</h3>
+    <ul>
+      <li *ngFor="let edit of savedEdits">
+        <strong>Edited:</strong> {{ edit.edited | json }}
+      </li>
+    </ul>
+  </div>
+    
