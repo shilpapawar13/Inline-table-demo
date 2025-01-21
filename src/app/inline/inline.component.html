@@ -1,46 +1,47 @@
 <div>
-  <button mat-button  (click)="bulkSave()">Bulk Save</button>
+  <button mat-icon-button color="primary" (click)="bulkSave()">Bulk Save</button>
 </div>
 
 <table mat-table [dataSource]="usersData" class="mat-elevation-z8">
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> ID </th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element" (dblclick)="editRow(element.id)">
       <input *ngIf="isEditing[element.id]" [(ngModel)]="element.id" 
-      (blur)="saveEdit(element.id, 'id', element.id)" />
-
+             (blur)="saveEdit(element.id, 'id', element.id)" />
       <span *ngIf="!isEditing[element.id]"> {{element.id}} </span>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element" (dblclick)="editRow(element.id)">
       <input *ngIf="isEditing[element.id]" [(ngModel)]="element.name" 
-      (blur)="saveEdit(element.id, 'name', element.name)" />
+             (blur)="saveEdit(element.id, 'name', element.name)" />
       <span *ngIf="!isEditing[element.id]"> {{element.name}} </span>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="username">
     <th mat-header-cell *matHeaderCellDef> Username </th>
-    <td mat-cell *matCellDef="let element">
+    <td mat-cell *matCellDef="let element" (dblclick)="editRow(element.id)">
       <input *ngIf="isEditing[element.id]" [(ngModel)]="element.username"
-                   (blur)="saveEdit(element.id, 'username', element.username)" />
-
+             (blur)="saveEdit(element.id, 'username', element.username)" />
       <span *ngIf="!isEditing[element.id]"> {{element.username}} </span>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <th mat-header-cell *matHeaderCellDef> </th>
     <td mat-cell *matCellDef="let element">
-      <button mat-button *ngIf="!isEditing[element.id]" (click)="toggleEditing(element.id, true)">Edit</button>
       <div *ngIf="isEditing[element.id]">
-        <button mat-button (click)="toggleEditing(element.id, false)">Save</button>
-        <button mat-button (click)="cancelEdit(element.id)">Cancel</button>
-      </div>
+        <button mat-icon-button color="primary" (click)="toggleEditing(element.id, false)" matTooltip="Save">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="cancelEdit(element.id)" matTooltip="Cancel">
+          <mat-icon>cancel</mat-icon>
+        </button>
+            </div>
     </td>
   </ng-container>
 
@@ -48,58 +49,3 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 </table>
-<!-- <table mat-table [dataSource]="usersData" class="mat-elevation-z8">
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> ID </th>
-    <td mat-cell *matCellDef="let element">
-      <input
-        *ngIf="isEditing[element.id]?.['id']"
-        [(ngModel)]="element.id"
-        (input)="updatePendingEdit(element.id, 'id', element.id)"
-      />
-      <span *ngIf="!isEditing[element.id]?.['id']" (dblclick)="startEditing(element.id, 'id')">
-        {{ element.id }}
-      </span>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element">
-      <input
-        *ngIf="isEditing[element.id]?.['name']"
-        [(ngModel)]="element.name"
-        (input)="updatePendingEdit(element.id, 'name', element.name)"
-      />
-      <span *ngIf="!isEditing[element.id]?.['name']" (dblclick)="startEditing(element.id, 'name')">
-        {{ element.name }}
-      </span>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="username">
-    <th mat-header-cell *matHeaderCellDef> Username </th>
-    <td mat-cell *matCellDef="let element">
-      <input
-        *ngIf="isEditing[element.id]?.['username']"
-        [(ngModel)]="element.username"
-        (input)="updatePendingEdit(element.id, 'username', element.username)"
-      />
-      <span *ngIf="!isEditing[element.id]?.['username']" (dblclick)="startEditing(element.id, 'username')">
-        {{ element.username }}
-      </span>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<div *ngIf="savedEdits.length > 0">
-  <h3>Saved Edits:</h3>
-  <ul>
-    <li>
-      Edited{{savedEdits | json}}
-    </li>
-  </ul>
-</div> -->

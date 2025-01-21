@@ -26,6 +26,8 @@ export class InlineCellEditComponent {
   }
 
   startEditing(rowId: number, column: string) {
+    console.log("column,Row",column,rowId);
+    
     if (!this.isEditing[rowId]) {
       this.isEditing[rowId] = {};
     }
@@ -33,34 +35,12 @@ export class InlineCellEditComponent {
   }
 
   updatePendingEdit(rowId: number, column: string, value: any) {
+    console.log("value ",value);
+    
     if (!this.pendingEdits[rowId]) {
       this.pendingEdits[rowId] = {};
     }
     this.pendingEdits[rowId][column] = value;
-  }
-
-  saveCell(rowId: number, column: string) {
-    const pendingValue = this.pendingEdits[rowId]?.[column];
-    if (pendingValue !== undefined) {
-      const rowIndex = this.usersData.findIndex((row) => row.id === rowId);
-      if (rowIndex !== -1) {
-        this.usersData[rowIndex][column] = pendingValue;
-      }
-      delete this.pendingEdits[rowId][column];
-      if (Object.keys(this.pendingEdits[rowId]).length === 0) {
-        delete this.pendingEdits[rowId];
-      }
-    }
-    this.isEditing[rowId][column] = false;
-  }
-
-  cancelEdit(rowId: number, column: string) {
-    if (this.isEditing[rowId]) {
-      this.isEditing[rowId][column] = false;
-    }
-    if (this.pendingEdits[rowId]?.[column] !== undefined) {
-      delete this.pendingEdits[rowId][column];
-    }
   }
 
   bulkSave() {
@@ -68,14 +48,14 @@ export class InlineCellEditComponent {
       const rowIndex = this.usersData.findIndex((row) => row.id === +rowId);
       if (rowIndex !== -1) {
         const rowEdits = this.pendingEdits[+rowId];
-        const originalRow = { ...this.usersData[rowIndex] };
+        //const originalRow = { ...this.usersData[rowIndex] };
         const editedRow = { ...this.usersData[rowIndex] };
 
         for (const column in rowEdits) {
           editedRow[column] = rowEdits[column];
         }
 
-        this.savedEdits.push({ original: originalRow, edited: editedRow });
+        this.savedEdits.push({ edited: editedRow });
       }
     });
 
@@ -90,5 +70,31 @@ export class InlineCellEditComponent {
     this.pendingEdits = {};
     this.isEditing = {};
   }
+
+  // cancelEdit(rowId: number, column: string) {
+  //   if (this.isEditing[rowId]) {
+  //     this.isEditing[rowId][column] = false;
+  //   }
+  //   if (this.pendingEdits[rowId]?.[column] !== undefined) {
+  //     delete this.pendingEdits[rowId][column];
+  //   }
+  // }
+
+  // saveCell(rowId: number, column: string) {
+  //   const pendingValue = this.pendingEdits[rowId]?.[column];
+  //   if (pendingValue !== undefined) {
+  //     const rowIndex = this.usersData.findIndex((row) => row.id === rowId);
+  //     if (rowIndex !== -1) {
+  //       this.usersData[rowIndex][column] = pendingValue;
+  //     }
+  //     delete this.pendingEdits[rowId][column];
+  //     if (Object.keys(this.pendingEdits[rowId]).length === 0) {
+  //       delete this.pendingEdits[rowId];
+  //     }
+  //   }
+  //   this.isEditing[rowId][column] = false;
+  // }
+
+
 
 }

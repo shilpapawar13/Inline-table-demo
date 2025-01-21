@@ -1,20 +1,33 @@
-.mat-row-sticky {
-    position: sticky;
-    top: 56px; 
-    left: 0; 
-    z-index: 10; 
-    background-color: #fff; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  }
-  
-
-  .mat-table-sticky-header {
-    position: sticky;
-    top: 0;
-    z-index: 20; 
-    background-color: #fff;
-    border-bottom: 2px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  
+.small-column {
+  max-width: 150px ;
+  overflow: hidden;  
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 100%;
+}
+ 
+.medium-column {
+  max-width: 350px ;
+  min-width: 100px;
+  overflow: hidden ;  
+  text-overflow: ellipsis ;
+  height: 100%;
+  white-space: nowrap ;
+}
+ 
+.large-column {
+  max-width: none;
+  white-space: normal;
+  height: 100%;
+  overflow: visible;
+}
+.expanded{
+  background-color: aqua;
+}
+.hide{
+  display: none;
+}
+.show {
+  display: table-row;
+}
+ 
